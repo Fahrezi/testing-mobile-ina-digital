@@ -21,7 +21,7 @@ export default function DocumentPage() {
     return cardOpened.includes(id);
   }
   return (
-    <Page className="!bg-f7f6f6">
+    <Page className="!bg-f9fafb">
       <Navbar
         title={'Dokumen'}
         colors={{
@@ -48,17 +48,22 @@ export default function DocumentPage() {
       <div className="flex flex-col px-2">
         {members.map((el) => {
           return (
-            <Card key={el.name}>
-              <div className="flex flex-col space-y-2">
+            <Card key={el.name} className="!my-2">
+              <div className="flex flex-col">
                 <div
-                  className="flex items-start justify-between cursor-pointer"
+                  className="flex items-center justify-between cursor-pointer"
                   onClick={() => handleOpenCard(el.id)}
                 >
-                  <div className="flex items-center space-x-3">
-                    <CreditCardIcon />
-                    <p className="text-lg text-212121 font-semibold">
-                      {el.name}
-                    </p>
+                  <div className="flex items-center space-x-1">
+                    <div className="flex items-center justify-center p-2">
+                      <CreditCardIcon />
+                    </div>
+                    <div>
+                      <p className="text-xs text-black font-semibold">
+                        {el.name}
+                      </p>
+                      <p className="text-xxs text-subtitle">{el.no_bpjs}</p>
+                    </div>
                   </div>
                   <div
                     className={`transition-all transform ${

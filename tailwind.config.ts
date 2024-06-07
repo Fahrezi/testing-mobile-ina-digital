@@ -30,6 +30,8 @@ const config: Config = inaConfig({
         af2a2d: '#AF2A2D',
         f7f6f6: '#F7F6F6',
         '1f1f1f': '#1F1F1F',
+        'stroke-primary': '#EAECF0',
+        f9fafb: '#F9FAFB',
       },
       fontSize: {
         xxs: ['10px', '18px'],

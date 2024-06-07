@@ -16,7 +16,7 @@ export default function HomePage() {
   const [members, setMembers] = useState(memberList);
   const router = useRouter();
   return (
-    <Page className="!bg-f7f6f6">
+    <Page className="!bg-f9fafb">
       <Navbar
         title="Status BPJS Kesehatan"
         colors={{
