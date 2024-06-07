@@ -8,3 +8,7 @@ export type Member = {
   birthdate: string;
   faskes: string;
 };
+export type MemberListHookResponse = {
+  data: Member[];
+  error: string;
+};
