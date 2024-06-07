@@ -1,55 +1,103 @@
-import { BlockTitle, Button, Card, Navbar, Page } from "ina-ui/react";
-import Link from "next/link";
-import { InaLib } from "ina-digital-sdk";
+import { memberList } from '@/lib/placeholder-data';
+import {
+  Badge,
+  Button,
+  Card,
+  Navbar,
+  NavbarBackLink,
+  Page,
+  Toolbar,
+} from 'ina-ui/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 
-export default function Home() {
-  const inaLib = new InaLib({ mode: "dev", secret_key: "your_secret_key" });
+export default function HomePage() {
+  const [members, setMembers] = useState(memberList);
+  const router = useRouter();
   return (
-    <Page>
-      <Navbar title="My App" />
-      <BlockTitle withBlock={false}>Navigation</BlockTitle>
-      <div className="grid grid-cols-2 lg:grid-cols-4 ">
-        <a href="https://docs-ina-digital.govtechindonesia.id/v1/microsites/ui/memulai" target="_blank">
-          <Card outline>
-            <div className="flex justify-center">
-              <div className="text-center">
-                <img src={(process.env.BASE_PATH != null ? process.env.BASE_PATH : '') + "/ic-docs.png"} className="w-24 h-24" />
-                <p className="mt-4 text-xl font-bold block">UI Docs</p>
+    <Page className="!bg-f7f6f6">
+      <Navbar
+        title="Status BPJS Kesehatan"
+        colors={{
+          textIos: 'text-1f2026 dark:text-white',
+          bgIos: 'bg-ios-light-surface dark:bg-1f2026',
+        }}
+        left={<NavbarBackLink showText={false} onClick={() => router.back()} />}
+      />
+      <div className="flex flex-col px-2 pb-18">
+        {members.map((el) => {
+          return (
+            <Card key={el.name}>
+              <div className="flex flex-col space-y-2 ">
+                <div className="flex items-start justify-between">
+                  <p className="text-lg text-212121 font-semibold">{el.name}</p>
+                  <Badge
+                    className="text-xxs font-semibold !p-2"
+                    colors={{
+                      bg:
+                        el.status === 'Aktif'
+                          ? 'bg-success/20'
+                          : 'bg-critical/20',
+                      text:
+                        el.status === 'Aktif'
+                          ? 'text-success'
+                          : 'text-critical',
+                    }}
+                  >
+                    {el.status}
+                  </Badge>
+                </div>
+                <div>
+                  <p className="text-subtitle text-xxs">No. BPJS Kesehatan</p>
+                  <p className="text-333333 text-xs font-semibold">
+                    {el.no_bpjs}
+                  </p>
+                </div>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-subtitle text-xxs">Peserta</p>
+                    <p className="text-333333 text-xs font-semibold">
+                      {el.occupation}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <p className="text-subtitle text-xxs">Jenis Kelas</p>
+                    <p className="text-333333 text-xs font-semibold">
+                      {el.class}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-subtitle text-xxs">Tanggal Lahir</p>
+                    <p className="text-333333 text-xs font-semibold">
+                      {el.birthdate}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <p className="text-subtitle text-xxs">Faskes 1</p>
+                    <p className="text-333333 text-xs font-semibold">
+                      {el.faskes}
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-          </Card>
-        </a>
-        <a href="https://docs-ina-digital.govtechindonesia.id/v1/microsites/sdk/memulai" target="_blank">
-          <Card outline>
-            <div className="flex justify-center">
-              <div className="text-center">
-                <img src={(process.env.BASE_PATH != null ? process.env.BASE_PATH : '') + "/ic-smile.png"} className="w-24 h-24" />
-                <p className="mt-4 text-xl font-bold block">SDK Lib</p>
-              </div>
-            </div>
-          </Card>
-        </a>
-        <Link href="/profile">
-          <Card outline>
-            <div className="flex justify-center">
-              <div className="text-center">
-                <img src={(process.env.BASE_PATH != null ? process.env.BASE_PATH : '') + "/ic-profile.png"} className="w-24 h-24 " />
-                <p className="mt-4 text-xl font-bold block">Profile</p>
-              </div>
-            </div>
-          </Card>
-        </Link>
-        <Link href="/about">
-          <Card outline>
-            <div className="flex justify-center">
-              <div className="text-center">
-                <img src={(process.env.BASE_PATH != null ? process.env.BASE_PATH : '') + "/ic-info.png"} className="w-24 h-24" />
-                <p className="mt-4 text-xl font-bold block">About</p>
-              </div>
-            </div>
-          </Card>
-        </Link>
+            </Card>
+          );
+        })}
       </div>
+      <Toolbar
+        top={false}
+        className="left-0 bottom-0 fixed w-full !p-4"
+        bgClassName="bg-white"
+      >
+        <Link href={'/card/user001'} className="w-full">
+          <Button className="!bg-1f1f1f !py-6" rounded>
+            <div className="capitalize">Lihat Kartu</div>
+          </Button>
+        </Link>
+      </Toolbar>
     </Page>
   );
 }
