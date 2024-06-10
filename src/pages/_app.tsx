@@ -5,7 +5,7 @@ import { AppPropsType } from 'next/dist/shared/lib/utils';
 export default function MyApp({ Component, pageProps }: AppPropsType) {
   return (
     <div>
-      <App theme="ios">
+      <App theme="ios" dark={false}>
         <Component {...pageProps} />
       </App>
     </div>
