@@ -73,6 +73,17 @@ export default function HomePage() {
             );
           })}
       </div>
+      <Toolbar
+        top={false}
+        className="left-0 bottom-0 fixed w-full !p-4"
+        bgClassName="bg-white"
+      >
+        <Link href={'/card/user001'} className="w-full">
+          <Button className="!bg-1f1f1f !py-6" rounded>
+            <div className="capitalize">Lihat Kartu</div>
+          </Button>
+        </Link>
+      </Toolbar>
     </Page>
   );
 }
