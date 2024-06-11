@@ -8,7 +8,7 @@ export type Member = {
   birthdate: string;
   faskes: string;
 };
-export type MemberListHookResponse = {
-  data: Member[];
+export interface APIResponse<T> {
+  data: T | undefined;
   error: string;
-};
+}

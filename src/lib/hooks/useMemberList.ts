@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Member, MemberListHookResponse } from '../definitions';
+import { APIResponse, Member } from '../definitions';
 import { memberList } from '../placeholder-data';
 
-export function useMemberList(): MemberListHookResponse {
+export function useMemberList(): APIResponse<Member[]> {
   const [members, setMembers] = useState([] as Member[]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
