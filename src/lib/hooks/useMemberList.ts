@@ -1,26 +1,60 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer, useState } from 'react';
 import { APIResponse, Member } from '../definitions';
-import { memberList } from '../placeholder-data';
 
-export function useMemberList(): APIResponse<Member[]> {
-  const [members, setMembers] = useState([] as Member[]);
+export function useMemberList(): {
+  isLoading: boolean;
+  response: APIResponse<Member[]>;
+} {
+  const initialResponse: APIResponse<Member[]> = {
+    status: 'default',
+    data: [],
+    message: '',
+  };
+  type ActionType = {
+    type: string;
+    payload: {
+      data: Member[];
+      [key: string]: any;
+    };
+  };
+  function reducer(
+    state: APIResponse<Member[]>,
+    actionType: ActionType
+  ): APIResponse<Member[]> {
+    const { type } = actionType;
+    switch (type) {
+      case 'success':
+        return {
+          ...state,
+          ...actionType.payload,
+        };
+      case 'error':
+        return {
+          ...state,
+          status: 'error',
+          message:
+            'Terjadi kesalahan pada sistem. <br/> Silahkan coba beberapa saat lagi',
+          data: [],
+        };
+
+      default:
+        return state;
+    }
+  }
+  const [response, dispatchResponse] = useReducer(reducer, initialResponse);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState('');
+
   const getData = useCallback(async (userId: string) => {
     setIsLoading(true);
-    setIsError(false);
     try {
       const res = await fetch(
-        `${process.env.API_BACKEND}/api/members/${userId}`
+        `${process.env.API_BACKEND}/kepesertaan/${userId}`
       );
       const resJson = await res.json();
-      setError('');
+      dispatchResponse({ type: 'success', payload: resJson });
+      console.log('response : ', response);
     } catch (e) {
-      setIsError(true);
-      if (typeof e === 'string') setError(e);
-      else if (e instanceof Error) setError(e.message);
-      setMembers(memberList);
+      dispatchResponse({ type: 'error', payload: { data: [] } });
     } finally {
       setIsLoading(false);
     }
@@ -32,7 +66,7 @@ export function useMemberList(): APIResponse<Member[]> {
     return () => {};
   }, [getData]);
   return {
-    data: members,
-    error,
+    isLoading,
+    response,
   };
 }
