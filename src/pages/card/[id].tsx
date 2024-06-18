@@ -1,15 +1,14 @@
 import { Card, Page } from 'ina-ui/react';
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import CreditCardIcon from '@/components/Icon/CreditCardIcon';
 import ChevronDownIcon from '@/components/Icon/ChevronDownIcon';
 import Image from 'next/image';
 import { useMemberList } from '@/lib/hooks/useMemberList';
+import CardLoaderPreview from '@/components/CardLoaderPreview';
 
 export default function DocumentPage() {
-  const membersData = useMemberList();
+  const { isLoading, response } = useMemberList();
   const [cardOpened, setCardOpened] = useState([] as string[]);
-  const router = useRouter();
   function handleOpenCard(id: string) {
     if (cardOpened.includes(id)) {
       setCardOpened(cardOpened.filter((el) => el !== id));
@@ -23,8 +22,10 @@ export default function DocumentPage() {
   return (
     <Page className="!bg-f9fafb">
       <div className="flex flex-col px-2">
-        {membersData.data &&
-          membersData.data.map((el) => {
+        {isLoading && <CardLoaderPreview />}
+        {!isLoading &&
+          response.data &&
+          response.data.map((el) => {
             return (
               <Card key={el.name} className="!my-2">
                 <div className="flex flex-col">
@@ -66,6 +67,11 @@ export default function DocumentPage() {
               </Card>
             );
           })}
+        {!isLoading && response.status === 'error' && (
+          <div className="text-xs italic text-critical flex items-center justify-center py-32">
+            <span dangerouslySetInnerHTML={{ __html: response.message }}></span>
+          </div>
+        )}
       </div>
     </Page>
   );

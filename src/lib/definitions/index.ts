@@ -9,6 +9,7 @@ export type Member = {
   faskes: string;
 };
 export interface APIResponse<T> {
-  data: T | undefined;
-  error: string;
+  status: string;
+  data: T;
+  message: string;
 }
