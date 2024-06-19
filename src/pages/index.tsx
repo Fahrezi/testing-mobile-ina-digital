@@ -1,5 +1,4 @@
 import CardLoaderItem from '@/components/CardLoaderItem';
-import { APIResponse, Member } from '@/lib/definitions';
 import { useMemberList } from '@/lib/hooks/useMemberList';
 import { Badge, Button, Card, Page, Toolbar } from 'ina-ui/react';
 import Link from 'next/link';

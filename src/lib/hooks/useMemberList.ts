@@ -52,8 +52,9 @@ export function useMemberList(): {
       );
       const resJson = await res.json();
       dispatchResponse({ type: 'success', payload: resJson });
-      console.log('response : ', response);
     } catch (e) {
+      alert(JSON.stringify(e));
+      console.log('error : ', e);
       dispatchResponse({ type: 'error', payload: { data: [] } });
     } finally {
       setIsLoading(false);
