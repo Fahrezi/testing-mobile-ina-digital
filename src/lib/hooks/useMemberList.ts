@@ -47,27 +47,13 @@ export function useMemberList(): {
   const getData = useCallback(async (userId: string) => {
     setIsLoading(true);
     try {
-      const resBpjsTk = await fetch(
-        `
-https://www.bpjsketenagakerjaan.go.id/plkk-kontak`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            kodeKabupaten: "3174",
-            page: 1,
-          }),
-        },
-      );
       const res = await fetch(
         `${process.env.API_BACKEND}/kepesertaan/${userId}`,
       );
       const resJson = await res.json();
-
-      const resJsonTK = await resBpjsTk.json();
       dispatchResponse({ type: "success", payload: resJson });
     } catch (e) {
       dispatchResponse({ type: "error", payload: { data: [] } });
-      console.log("error : ", e);
     } finally {
       setIsLoading(false);
     }
