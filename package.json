@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.8.0",
     "axios": "^1.6.7",
     "bowser": "^2.11.0",
     "crypto-js": "^4.2.0",
