@@ -1,8 +1,12 @@
 import KartuIndonesiaSehat from '@/components/KartuIndonesiaSehat'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function FullScreenCard() {
+
+  useEffect(() => {
+    window.screen.orientation['lock']('landscape').then(() => console.log('landscape'));
+  }, []);
   interface StringDictionary {
     [key: string]: string
   }
