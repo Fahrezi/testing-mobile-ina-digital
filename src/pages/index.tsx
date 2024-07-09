@@ -5,7 +5,41 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function HomePage() {
-  const { isLoading, response } = useMemberList();
+  // const { isLoading, response } = useMemberList();
+  const isLoading = false;
+  const response = {
+    data: [
+      {
+        name: 'pasien 1',
+        status: 'Aktif',
+        no_bpjs: '123456789',
+        occupation: 'Karyawan Swasta',
+        class: 'Kelas 1',
+        birthdate: '1 April 2000',
+        faskes: 'RS Tebet'
+      },
+      {
+        name: 'pasien 2',
+        status: 'Tidak Aktif',
+        no_bpjs: '123456789',
+        occupation: 'Pengangguran',
+        class: 'Kelas 1',
+        birthdate: '2 April 2000',
+        faskes: 'RS Tebet'
+      },
+      {
+        name: 'pasien 3',
+        status: 'Aktif',
+        no_bpjs: '123456789',
+        occupation: 'Pekerja Lepas',
+        class: 'Kelas 1',
+        birthdate: '3 April 2000',
+        faskes: 'RS Tebet'
+      }
+    ],
+    status: 'success',
+    message: ''
+  }
   return (
     <Page className="!bg-f9fafb">
       {isLoading && (

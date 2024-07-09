@@ -13,3 +13,7 @@ export interface APIResponse<T> {
   data: T;
   message: string;
 }
+
+export interface StringDictionary {
+  [key: string]: string
+}
